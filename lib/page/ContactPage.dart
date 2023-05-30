@@ -5,6 +5,7 @@ import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 
 import 'FriendProfile.dart';
+import 'GroupPage.dart';
 
 
 class ContactPage extends StatelessWidget {
@@ -25,7 +26,7 @@ class ContactPage extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const TIMUIKitGroup(),
+                builder: (context) => const GroupPage(key: Key("groupList")),
               ));
           break;
       }
@@ -90,11 +91,11 @@ class ContactPage extends StatelessWidget {
 
     return TIMUIKitContact(
       topList: [
-        TopListItem(
-          name: ("新的联系人"),
-          id: "newContact",
-          icon: Image.asset(_getImagePathByID("newContact")),
-        ),
+        // TopListItem(
+        //   name: ("新的联系人"),
+        //   id: "newContact",
+        //   icon: Image.asset(_getImagePathByID("newContact")),
+        // ),
         TopListItem(
           name: ("我的群聊"),
           id: "groupList",
