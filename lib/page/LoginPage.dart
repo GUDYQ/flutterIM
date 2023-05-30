@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.title}) : super(key: key);
@@ -6,14 +9,59 @@ class LoginPage extends StatefulWidget {
 
   @override
   LoginPageState createState() => LoginPageState();
-
 }
 
 class LoginPageState extends State<LoginPage> {
   final GlobalKey _formKey = GlobalKey<FormState>();
-  late String _email, _password;
-  bool _isObscure = true, _checked = false;
+  late String _username, _password;
+  bool _isObscure = true;
   Color _eyeColor = Colors.grey;
+
+  CoreServicesImpl timCoreInstance = TIMUIKitCore.getInstance();
+
+  int getSDKAPPID() {
+    return const int.fromEnvironment('SDK_APPID', defaultValue: 1400813647);
+  }
+
+  String getUserID() {
+    return const String.fromEnvironment('LOGINUSERID', defaultValue: "admin");
+  }
+
+  String getSecret() {
+    return const String.fromEnvironment('SECRET',
+        defaultValue:
+            "2a6d6368f68da55dbd07b4b8cbd6e42dd2531527aa95e5849e7ce21015c5ce79");
+  }
+
+  initTIMUIKIT() async {
+    int sdkappid = getSDKAPPID();
+    String userid = getUserID();
+    String secret = getSecret();
+    // String usersig = GenerateTestUserSig(sdkappid: sdkappid, key: secret)
+    //     .genSig(identifier: userid, expire: 24 * 7 * 60 * 60 * 1000);
+    // if (sdkappid == 0 || userid == '' || secret == '' || usersig == '') {
+    //   print("The running parameters are abnormal, please check");
+    //   return;
+    // }
+    String usersig =
+        "eJyrVgrxCdYrSy1SslIy0jNQ0gHzM1NS80oy0zLBwokpuZl5UInilOzEgoLMFCUrQxMDAwtDYzMTc4hMakVBZlEqUNzU1NTIwMAAIlqSmQsSM7MwNTY3MDG3hJqSmQ40N0bf2NvH3yndoCDHMTjbWzs9wCXc0TzQsMi3KiC93L2wMistp7C4KD01KaTYVqkWAE92Mk8_";
+    await timCoreInstance.init(
+      sdkAppID: sdkappid,
+      loglevel: LogLevelEnum.V2TIM_LOG_DEBUG,
+      listener: V2TimSDKListener(
+        onConnectFailed: (code, error) {},
+        onConnectSuccess: () {},
+        onConnecting: () {},
+        onKickedOffline: () {},
+        onSelfInfoUpdated: (V2TimUserFullInfo info) {},
+        onUserSigExpired: () {},
+      ),
+    );
+    V2TimCallback res =
+        await timCoreInstance.login(userID: userid, userSig: usersig);
+    print(
+        "Log in to Tencent Cloud Instant Messaging IM Return：${res.toJson()}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +72,11 @@ class LoginPageState extends State<LoginPage> {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           children: [
-            const SizedBox( height: kToolbarHeight),
+            const SizedBox(height: kToolbarHeight),
             buildTitle(),
             buildTitleLine(),
             const SizedBox(height: 60),
-            buildEmailTextField(),
+            buildUsernameTextField(),
             const SizedBox(height: 30),
             buildPasswordTextField(context),
             buildForgetPasswordText(context),
@@ -36,39 +84,9 @@ class LoginPageState extends State<LoginPage> {
             buildLoginButton(context),
             const SizedBox(height: 40),
             buildRegisterText(context),
-            const SizedBox(height: 100),
-            buildPrivacyText(context),
           ],
         ),
-
       ),
-    );
-  }
-  Widget buildPrivacyText(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Checkbox(
-            value: _checked,
-            onChanged: (value) {
-              setState(() {
-                _checked = !_checked;
-              });
-            }),
-        const Text(
-          '同意',
-          style: TextStyle(fontSize: 14),
-        ),
-        const Text(
-          '<服务协议>',
-          style: TextStyle(fontSize: 14, color: Colors.blue),
-        ),
-        const Text(
-          '和',
-          style: TextStyle(fontSize: 14),
-        ),
-        const Text('<隐私政策>', style: TextStyle(fontSize: 14, color: Colors.blue)),
-      ],
     );
   }
 
@@ -101,12 +119,13 @@ class LoginPageState extends State<LoginPage> {
           style: ButtonStyle(
               shape: MaterialStateProperty.all(const StadiumBorder(
                   side: BorderSide(style: BorderStyle.none)))),
-          child:
-          Text('登录', style: Theme.of(context).primaryTextTheme.headline5),
+          child: Text('登录',
+              style: Theme.of(context).primaryTextTheme.headlineSmall),
           onPressed: () {
             if ((_formKey.currentState as FormState).validate()) {
               (_formKey.currentState as FormState).save();
-              print('email: $_email, password: $_password');
+              initTIMUIKIT();
+              Get.offAndToNamed("/home");
             }
           },
         ),
@@ -166,10 +185,15 @@ class LoginPageState extends State<LoginPage> {
         ));
   }
 
-  Widget buildEmailTextField() {
+  Widget buildUsernameTextField() {
     return TextFormField(
-      validator: (v) {},
-      onSaved: (v) => _email = v!,
+      validator: (v) {
+        if (v != 'admin') {
+          return '用户错误';
+        }
+        return null;
+      },
+      onSaved: (v) => _username = v!,
       decoration: const InputDecoration(
         labelText: "账号",
         border: OutlineInputBorder(

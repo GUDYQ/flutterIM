@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'ContactPage.dart';
+
 class HomePage extends StatefulWidget{
   const HomePage({super.key, required this.title});
 
@@ -11,7 +13,9 @@ class HomePage extends StatefulWidget{
 
 class _HomePage extends State<HomePage> {
   int _currentIndex = 0;
-  List<Widget> _pageList = [];
+  List<Widget> _pageList = [
+    ContactPage()
+  ];
   final List<BottomNavigationBarItem> _barItem = [
     BottomNavigationBarItem(icon: Icon(Icons.question_answer), label: '消息'),
     BottomNavigationBarItem(icon: Icon(Icons.account_balance), label: '通讯录'),
