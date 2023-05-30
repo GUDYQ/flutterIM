@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 
 class TIMUIKitProfileExample extends StatelessWidget {
   final String? userID;
@@ -11,6 +12,7 @@ class TIMUIKitProfileExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return TIMUIKitProfile(
       userID: userID ?? "admin", // Please fill in here according to the actual cleaning
+      profileWidgetsOrder: const [ProfileWidgetEnum.userInfoCard, ProfileWidgetEnum.userAccountBar, ProfileWidgetEnum.],
     );
   }
 }

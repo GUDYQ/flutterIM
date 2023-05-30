@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'TIMUIKitChat':
         return const TIMUIKitChatExample();
       case 'TIMUIKitProfile':
-        return const TIMUIKitProfileExample(key: Key('联系人'), userID: 'yyq');
+        return const TIMUIKitProfileExample(key: Key('联系人'), userID: 'admin');
       case 'TIMUIKitAddFriend':
         return const TIMUIKitAddFriendExample();
       case 'TIMUIKitAddGroup':
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'TIMUIKitGroup':
         return const TIMUIKitGroupExample();
       case 'TIMUIKitGroupProfile':
-        return const TIMUIKitGroupProfileExample(key: Key("芝士雪豹"), groupID: "@TGS#1FNRUTXMU");
+        return const TIMUIKitGroupProfileExample(key: Key("芝士雪豹"), groupID: "@TGS#1NTVNUXMB");
       case 'TIMUIKitNewContact':
         return const TIMUIKitNewContactExample();
       case 'TIMUIKitSearch':
