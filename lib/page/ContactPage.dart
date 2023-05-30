@@ -105,7 +105,7 @@ class ContactPage extends StatelessWidget {
               ),
             ));
       },
-      emptyBuilder: (context) => Center(
+      emptyBuilder: (context) => const Center(
         child: Text(("无联系人")),
       ),
     );

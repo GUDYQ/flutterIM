@@ -14,13 +14,13 @@ class GroupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
+          title: const Text(
             ("群聊"),
-            style: const TextStyle(color: Colors.white, fontSize: 17),
+            style: TextStyle(color: Colors.white, fontSize: 17),
           ),
           shadowColor: Colors.white,
           flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
                 CommonColor.lightPrimaryColor,
                 CommonColor.primaryColor
@@ -43,7 +43,7 @@ class GroupPage extends StatelessWidget {
               ));
         },
         emptyBuilder: (_) {
-          return Center(
+          return const Center(
             child: Text(("暂无群聊")),
           );
         },

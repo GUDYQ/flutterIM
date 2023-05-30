@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
-
+import 'package:get/get.dart';
 import 'ChatPage.dart';
 
 class FriendProfile extends StatelessWidget {
@@ -25,13 +25,10 @@ class FriendProfile extends StatelessWidget {
       return InkWell(
         onTap: () {
           if (e["id"] == "sendMsg") {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ChatPage(
+            Get.to(() => ChatPage(
                     selectedConversation: conversation,
                   ),
-                ));
+                );
           }
         },
         child: Container(
@@ -58,12 +55,12 @@ class FriendProfile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.white,
-        title: Text(
+        title: const Text(
           ("详细资料"),
-          style: const TextStyle(color: Colors.white, fontSize: 17),
+          style: TextStyle(color: Colors.white, fontSize: 17),
         ),
         flexibleSpace: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
               CommonColor.lightPrimaryColor,
               CommonColor.primaryColor

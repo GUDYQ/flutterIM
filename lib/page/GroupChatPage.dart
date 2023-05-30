@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/group_profile_widget.dart';
 
 import '../Example/TIMUIKitGroupProfileExample.dart';
 
@@ -60,39 +62,36 @@ class GroupChatPage extends StatelessWidget {
         type: 2,
       ),
       conversationShowName: selectedConversation?.showName ?? "group_10040818",
-      // customStickerPanel: renderCustomStickerPanel,
-      // config: const TIMUIKitChatConfig(
-      //   // 仅供演示，非全部配置项，实际使用中，可只传和默认项不同的参数，无需传入所有开关
-      //   isAllowClickAvatar: true,
-      //   isUseDefaultEmoji: true,
-      //   isAllowLongPressMessage: true,
-      //   isShowReadingStatus: true,
-      //   isShowGroupReadingStatus: true,
-      //   notificationTitle: "",
-      //   isUseMessageReaction: true,
-      //   groupReadReceiptPermissionList: [
-      //     GroupReceiptAllowType.work,
-      //     GroupReceiptAllowType.meeting,
-      //     GroupReceiptAllowType.public
-      //   ],
-      // ),
       appBarConfig: AppBar(
         actions: [
           IconButton(
               padding: const EdgeInsets.only(left: 8, right: 16),
               onPressed: () async {
-
                   final String? groupID = selectedConversation?.groupID;
                   if (groupID != null) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Scaffold(
+                    Get.to(() => Scaffold(
                               appBar: AppBar(title: Text(groupID)),
-                              body: TIMUIKitGroupProfileExample(
+                              body: TIMUIKitGroupProfile(
                                 groupID: groupID,
+                                  profileWidgetsOrder: const [
+                                    GroupProfileWidgetEnum.detailCard, //群组详细信息
+                                    GroupProfileWidgetEnum.operationDivider, //分割线
+                                    GroupProfileWidgetEnum.memberListTile, //群组成员列表
+                                    GroupProfileWidgetEnum.operationDivider, //分割线
+                                    GroupProfileWidgetEnum.groupNotice, //群公告
+                                    GroupProfileWidgetEnum.groupManage, //群管理
+                                    GroupProfileWidgetEnum.groupJoiningModeBar, //加群方式设置
+                                    GroupProfileWidgetEnum.groupTypeBar, //群类型栏
+                                    GroupProfileWidgetEnum.operationDivider, //分割线
+                                    GroupProfileWidgetEnum.pinedConversationBar, //置顶聊天功能
+                                    GroupProfileWidgetEnum.muteGroupMessageBar, //消息免打扰
+                                    GroupProfileWidgetEnum.operationDivider, //分割线
+                                    GroupProfileWidgetEnum.nameCardBar, //我的群昵称
+                                    GroupProfileWidgetEnum.operationDivider, //分割线
+                                    GroupProfileWidgetEnum.buttonArea, //按钮功能区
+                                  ],
                               )),
-                        ));
+                        );
                   }
               },
               icon: Image.asset(
