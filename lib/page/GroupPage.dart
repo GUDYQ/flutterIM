@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
-import 'package:untitled2/Example/TIMUIKitChatExample.dart';
+
+import '../Example/TIMUIKitChatExample.dart';
+import 'GroupChatPage.dart';
 
 class GroupPage extends StatelessWidget {
   const GroupPage({Key? key}) : super(key: key);
@@ -31,10 +33,11 @@ class GroupPage extends StatelessWidget {
       body: TIMUIKitGroup(
         onTapItem: (groupInfo, conversation) {
           final groupID = groupInfo.groupID;
+          print(groupInfo);
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => TIMUIKitChatExample(
+                builder: (context) => GroupChatPage(
                   selectedConversation: conversation,
                 ),
               ));
