@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:untitled2/page/ProfilePage.dart';
 
 import 'ContactPage.dart';
+import 'ConversationPage.dart';
 
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
 
   final String title;
@@ -13,24 +15,33 @@ class HomePage extends StatefulWidget{
 
 class _HomePage extends State<HomePage> {
   int _currentIndex = 0;
-  List<Widget> _pageList = [
-    ContactPage()
+  final List<Widget> _pageList = [
+    const ConversationPage(),
+    const ContactPage(),
+    const ProfilePage()
   ];
+  final List<String> _labels = ['消息', '通讯录', '个人'];
   final List<BottomNavigationBarItem> _barItem = [
-    BottomNavigationBarItem(icon: Icon(Icons.question_answer), label: '消息'),
-    BottomNavigationBarItem(icon: Icon(Icons.account_balance), label: '通讯录'),
-    BottomNavigationBarItem(icon: Icon(Icons.perm_identity), label: '个人'),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.question_answer), label: '消息'),
+    const BottomNavigationBarItem(icon: Icon(Icons.contacts), label: '通讯录'),
+    const BottomNavigationBarItem(icon: Icon(Icons.perm_identity), label: '个人'),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(_labels[_currentIndex]),
         actions: [
           new IconButton(
-            icon: new Icon(Icons.add, color: Colors.white,),
+            icon: new Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
             onPressed: null,
-          )],
+          )
+        ],
       ),
       body: _pageList[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -46,7 +57,6 @@ class _HomePage extends State<HomePage> {
         selectedFontSize: 16,
         unselectedFontSize: 12,
         type: BottomNavigationBarType.fixed,
-
       ),
     );
   }

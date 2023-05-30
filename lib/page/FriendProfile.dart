@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/widget/tim_uikit_profile_widget.dart';
-import 'package:untitled2/Example/TIMUIKitChatExample.dart';
+
+import 'ChatPage.dart';
 
 class FriendProfile extends StatelessWidget {
   final String? userID;
@@ -27,7 +28,7 @@ class FriendProfile extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TIMUIKitChatExample(
+                  builder: (context) => ChatPage(
                     selectedConversation: conversation,
                   ),
                 ));

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:untitled2/router.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.title}) : super(key: key);
@@ -125,7 +126,7 @@ class LoginPageState extends State<LoginPage> {
             if ((_formKey.currentState as FormState).validate()) {
               (_formKey.currentState as FormState).save();
               initTIMUIKIT();
-              Get.offAndToNamed("/home");
+              Get.offAndToNamed(AppRouter.home);
             }
           },
         ),
