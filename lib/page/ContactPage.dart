@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 
-import '../page/FriendProfile.dart';
+import 'FriendProfile.dart';
 
 
-class TIMUIKitContactExample extends StatelessWidget {
-  const TIMUIKitContactExample({Key? key}) : super(key: key);
+class ContactPage extends StatelessWidget {
+  const ContactPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,8 @@ class TIMUIKitContactExample extends StatelessWidget {
     }
 
     String _getImagePathByID(String id) {
-          return "";
-      }
+      return "";
+    }
 
 
     Widget? _topListBuilder(TopListItem item) {
