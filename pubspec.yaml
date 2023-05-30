@@ -39,6 +39,7 @@ dependencies:
   archive: ^3.3.7
   tencent_cloud_chat_uikit: ^2.0.0
   csslib: 0.17.0
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
