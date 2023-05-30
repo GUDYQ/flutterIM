@@ -12,7 +12,7 @@ class TIMUIKitProfileExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return TIMUIKitProfile(
       userID: userID ?? "admin", // Please fill in here according to the actual cleaning
-      profileWidgetsOrder: const [ProfileWidgetEnum.userInfoCard, ProfileWidgetEnum.userAccountBar, ProfileWidgetEnum.],
+      profileWidgetsOrder: const [ProfileWidgetEnum.userInfoCard, ProfileWidgetEnum.userAccountBar, ProfileWidgetEnum.nicknameBar, ProfileWidgetEnum.genderBar, ProfileWidgetEnum.birthdayBar]
     );
   }
 }

@@ -14,6 +14,7 @@ import 'TIMUIKitGroupExample.dart';
 import 'TIMUIKitGroupProfileExample.dart';
 import 'TIMUIKitNewContactExample.dart';
 import 'TIMUIKitSearchExample.dart';
+import '../page/FriendProfile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -111,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'TIMUIKitChat':
         return const TIMUIKitChatExample();
       case 'TIMUIKitProfile':
-        return const TIMUIKitProfileExample(key: Key('联系人'), userID: 'admin');
+        return const FriendProfile(key: Key('联系人'), userID: 'yyq');
       case 'TIMUIKitAddFriend':
         return const TIMUIKitAddFriendExample();
       case 'TIMUIKitAddGroup':
