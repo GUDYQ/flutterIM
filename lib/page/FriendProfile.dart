@@ -8,7 +8,8 @@ import 'package:untitled2/Example/TIMUIKitChatExample.dart';
 
 class FriendProfile extends StatelessWidget {
   final String? userID;
-  const FriendProfile({Key? key, this.userID}) : super(key: key);
+  final bool? enableTopTitle;
+  const FriendProfile({Key? key, this.userID, this.enableTopTitle}) : super(key: key);
 
   _buildBottomOperationList(
       BuildContext context, V2TimConversation conversation) {
@@ -54,6 +55,31 @@ class FriendProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        shadowColor: Colors.white,
+        title: Text(
+          ("详细资料"),
+          style: const TextStyle(color: Colors.white, fontSize: 17),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              CommonColor.lightPrimaryColor,
+              CommonColor.primaryColor
+            ]),
+          ),
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        leading: IconButton(
+          padding: const EdgeInsets.only(left: 16),
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Container(
         child: TIMUIKitProfile(
           userID: userID?? "admin",

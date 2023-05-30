@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 
+import '../page/FriendProfile.dart';
 import 'TIMUIKitGroupExample.dart';
 import 'TIMUIKitNewContactExample.dart';
 import 'TIMUIKitProfileExample.dart';
@@ -108,11 +109,9 @@ class TIMUIKitContactExample extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TIMUIKitChat(conversation: V2TimConversation(
-                  conversationID: "c2c_${item.userID}",
-                  userID: item.userID,
-                  showName: item.userID,
-                  type: 1)),
+              builder: (context) => FriendProfile(
+                userID: item.userID,
+              ),
             ));
       },
       emptyBuilder: (context) => Center(
