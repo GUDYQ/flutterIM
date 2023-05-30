@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import '../page/ContactPage.dart';
+import '../page/GroupPage.dart';
 import 'GenerateUserSig.dart';
 import 'TIMUIKitChatExample.dart';
 import 'TIMUIKitConversationExample.dart';
@@ -123,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'TIMUIKitContact':
         return const ContactPage();
       case 'TIMUIKitGroup':
-        return const TIMUIKitGroupExample();
+        return const GroupPage();
       case 'TIMUIKitGroupProfile':
         return const TIMUIKitGroupProfileExample(key: Key("芝士雪豹"), groupID: "@TGS#1NTVNUXMB");
       case 'TIMUIKitNewContact':

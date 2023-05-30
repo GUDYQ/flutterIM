@@ -6,6 +6,8 @@ import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/widgets/avatar.dart';
 
 import 'FriendProfile.dart';
+import 'GroupPage.dart';
+
 
 class ContactPage extends StatelessWidget {
   const ContactPage({Key? key}) : super(key: key);
@@ -18,7 +20,7 @@ class ContactPage extends StatelessWidget {
           Get.to(() => const ContactPage());
           break;
         case "groupList":
-          Get.to(() => const ContactPage());
+          Get.to(() => const GroupPage(key: Key("groupList")));
           break;
       }
     }
@@ -26,6 +28,7 @@ class ContactPage extends StatelessWidget {
     String _getImagePathByID(String id) {
       return "";
     }
+
 
     Widget? _topListBuilder(TopListItem item) {
       final showName = item.name;
@@ -49,30 +52,30 @@ class ContactPage extends StatelessWidget {
               ),
               Expanded(
                   child: Container(
-                padding: const EdgeInsets.only(top: 10, bottom: 19),
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(color: hexToColor("DBDBDB")))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      showName,
-                      style:
+                    padding: const EdgeInsets.only(top: 10, bottom: 19),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: hexToColor("DBDBDB")))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          showName,
+                          style:
                           TextStyle(color: hexToColor("111111"), fontSize: 18),
+                        ),
+                        Expanded(child: Container()),
+                        const TIMUIKitUnreadCount(),
+                        Container(
+                          margin: const EdgeInsets.only(right: 16),
+                          child: Icon(
+                            Icons.keyboard_arrow_right,
+                            color: hexToColor('BBBBBB'),
+                          ),
+                        )
+                      ],
                     ),
-                    Expanded(child: Container()),
-                    const TIMUIKitUnreadCount(),
-                    Container(
-                      margin: const EdgeInsets.only(right: 16),
-                      child: Icon(
-                        Icons.keyboard_arrow_right,
-                        color: hexToColor('BBBBBB'),
-                      ),
-                    )
-                  ],
-                ),
-              ))
+                  ))
             ],
           ),
         ),
@@ -80,31 +83,31 @@ class ContactPage extends StatelessWidget {
     }
 
     return TIMUIKitContact(
-          topList: [
-            TopListItem(
-              name: ("新的联系人"),
-              id: "newContact",
-              icon: Image.asset(_getImagePathByID("newContact")),
-            ),
-            TopListItem(
-              name: ("我的群聊"),
-              id: "groupList",
-              icon: Image.asset(_getImagePathByID("groupList")),
-            )
-          ],
-          topListItemBuilder: _topListBuilder,
-          onTapItem: (item) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FriendProfile(
-                    userID: item.userID,
-                  ),
-                ));
-          },
-          emptyBuilder: (context) => const Center(
-            child: Text(("无联系人")),
-          ),
-        );
+      topList: [
+        // TopListItem(
+        //   name: ("新的联系人"),
+        //   id: "newContact",
+        //   icon: Image.asset(_getImagePathByID("newContact")),
+        // ),
+        TopListItem(
+          name: ("我的群聊"),
+          id: "groupList",
+          icon: Image.asset(_getImagePathByID("groupList")),
+        )
+      ],
+      topListItemBuilder: _topListBuilder,
+      onTapItem: (item) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FriendProfile(
+                userID: item.userID,
+              ),
+            ));
+      },
+      emptyBuilder: (context) => Center(
+        child: Text(("无联系人")),
+      ),
+    );
   }
 }
