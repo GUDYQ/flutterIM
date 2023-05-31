@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitGroupProfile/group_profile_widget.dart';
 
-import '../Example/TIMUIKitGroupProfileExample.dart';
-
 class GroupChatPage extends StatelessWidget {
   final V2TimConversation? selectedConversation;
 
