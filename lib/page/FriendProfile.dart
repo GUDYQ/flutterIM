@@ -105,7 +105,6 @@ class FriendProfile extends StatelessWidget {
             ProfileWidgetEnum.pinConversationBar,//会话置顶功能
             ProfileWidgetEnum.messageMute,//禁言用户功能
             ProfileWidgetEnum.operationDivider,//分割线
-            ProfileWidgetEnum.customBuilderOne,//自定义区域一（自定义）
             ProfileWidgetEnum.addAndDeleteArea//添加或删除功能
           ],
         ),
