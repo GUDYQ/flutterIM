@@ -6,10 +6,10 @@ import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitProfile/profile_widget
 import 'package:get/get.dart';
 import 'ChatPage.dart';
 
-class FriendProfile extends StatelessWidget {
+class FriendProfilePage extends StatelessWidget {
   final String? userID;
   final bool? enableTopTitle;
-  const FriendProfile({Key? key, this.userID, this.enableTopTitle}) : super(key: key);
+  const FriendProfilePage({Key? key, this.userID, this.enableTopTitle}) : super(key: key);
 
   _buildBottomOperationList(
       BuildContext context, V2TimConversation conversation) {

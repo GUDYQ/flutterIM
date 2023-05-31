@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:untitled2/page/FriendProfile.dart';
 
 import 'GroupProfilePage.dart';
 import 'ProfilePage.dart';
@@ -80,29 +82,20 @@ class ChatPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8, right: 16),
               onPressed: () async {
                 final conversationType = selectedConversation?.type ?? 1;
-
                 if (conversationType == 1) {
                   final String? userID = selectedConversation?.userID;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                            appBar:
-                                AppBar(title: Text(userID ?? "User Profile")),
-                            body: ProfilePage(userID: userID)),
-                      ));
+                  Get.to(() => Scaffold(
+                      body: FriendProfilePage(userID: userID)));
                 } else {
                   final String? groupID = selectedConversation?.groupID;
                   if (groupID != null) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Scaffold(
-                              appBar: AppBar(title: Text(groupID)),
-                              body: GroupProfilePage(
-                                groupID: groupID,
-                              )),
-                        ));
+                    Get.to(
+                      () => Scaffold(
+                          appBar: AppBar(title: Text(groupID)),
+                          body: GroupProfilePage(
+                            groupID: groupID,
+                          )),
+                    );
                   }
                 }
               },
