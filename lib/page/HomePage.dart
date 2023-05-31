@@ -34,14 +34,30 @@ class _HomePage extends State<HomePage> {
                   value: '1',
                   child: Row(
                     children: const [
-                      Icon(Icons.search, color: Colors.black,),
+                      Icon(
+                        Icons.add_comment_outlined,
+                        color: Colors.black,
+                      ),
+                      SizedBox(width: 10),
+                      Text('创建群组'),
+                    ],
+                  ),
+                ),
+                PopupMenuItem<String>(
+                  value: '2',
+                  child: Row(
+                    children: const [
+                      Icon(
+                        Icons.search,
+                        color: Colors.black,
+                      ),
                       SizedBox(width: 10),
                       Text('搜索'),
                     ],
                   ),
                 ),
                 PopupMenuItem<String>(
-                  value: '2',
+                  value: '3',
                   child: Row(
                     children: const [
                       Icon(Icons.person_add, color: Colors.black),
@@ -51,7 +67,7 @@ class _HomePage extends State<HomePage> {
                   ),
                 ),
                 PopupMenuItem<String>(
-                  value: '3',
+                  value: '4',
                   child: Row(
                     children: const [
                       Icon(Icons.group_add, color: Colors.black),
@@ -64,12 +80,14 @@ class _HomePage extends State<HomePage> {
           onSelected: (String value) {
             switch (value) {
               case '1':
-                Get.toNamed(AppRouter.searchAll);
                 break;
               case '2':
-                Get.toNamed(AppRouter.addFriend);
+                Get.toNamed(AppRouter.searchAll);
                 break;
               case '3':
+                Get.toNamed(AppRouter.addFriend);
+                break;
+              case '4':
                 Get.toNamed(AppRouter.addGroup);
                 break;
             }

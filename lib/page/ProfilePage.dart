@@ -32,6 +32,16 @@ class ProfilePage extends StatelessWidget {
         },
         style: ButtonStyle(
           minimumSize:
+          MaterialStateProperty.all(const Size(double.infinity, 50)),
+        ),
+        child: const Text('切换账号'),
+      ),
+      TextButton(
+        onPressed: () {
+          Get.offAllNamed(AppRouter.login);
+        },
+        style: ButtonStyle(
+          minimumSize:
               MaterialStateProperty.all(const Size(double.infinity, 50)),
           foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
         ),

@@ -1,68 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:untitled2/router.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.title}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  LoginPageState createState() => LoginPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class RegisterPageState extends State<RegisterPage> {
   final GlobalKey _formKey = GlobalKey<FormState>();
-  late String _username, _password;
-  bool _isObscure = true;
-  Color _eyeColor = Colors.grey;
-
-  CoreServicesImpl timCoreInstance = TIMUIKitCore.getInstance();
-
-  int getSDKAPPID() {
-    return const int.fromEnvironment('SDK_APPID', defaultValue: 1400813647);
-  }
-
-  String getUserID() {
-    return const String.fromEnvironment('LOGINUSERID', defaultValue: "admin");
-  }
-
-  String getSecret() {
-    return const String.fromEnvironment('SECRET',
-        defaultValue:
-            "2a6d6368f68da55dbd07b4b8cbd6e42dd2531527aa95e5849e7ce21015c5ce79");
-  }
-
-  initTIMUIKIT() async {
-    int sdkappid = getSDKAPPID();
-    String userid = getUserID();
-    String secret = getSecret();
-    // String usersig = GenerateTestUserSig(sdkappid: sdkappid, key: secret)
-    //     .genSig(identifier: userid, expire: 24 * 7 * 60 * 60 * 1000);
-    // if (sdkappid == 0 || userid == '' || secret == '' || usersig == '') {
-    //   print("The running parameters are abnormal, please check");
-    //   return;
-    // }
-    String usersig =
-        "eJyrVgrxCdYrSy1SslIy0jNQ0gHzM1NS80oy0zLBwokpuZl5UInilOzEgoLMFCUrQxMDAwtDYzMTc4hMakVBZlEqUNzU1NTIwMAAIlqSmQsSM7MwNTY3MDG3hJqSmQ40N0bf2NvH3yndoCDHMTjbWzs9wCXc0TzQsMi3KiC93L2wMistp7C4KD01KaTYVqkWAE92Mk8_";
-    await timCoreInstance.init(
-      sdkAppID: sdkappid,
-      loglevel: LogLevelEnum.V2TIM_LOG_DEBUG,
-      listener: V2TimSDKListener(
-        onConnectFailed: (code, error) {},
-        onConnectSuccess: () {},
-        onConnecting: () {},
-        onKickedOffline: () {},
-        onSelfInfoUpdated: (V2TimUserFullInfo info) {},
-        onUserSigExpired: () {},
-      ),
-    );
-    V2TimCallback res =
-        await timCoreInstance.login(userID: userid, userSig: usersig);
-    print(
-        "Log in to Tencent Cloud Instant Messaging IM Return：${res.toJson()}");
-  }
+  late String _username, _password, _email;
+  bool _isObscure = true, _isObscureAgain = true;
+  Color _eyeColor = Colors.grey, _eyeColorAgain = Colors.grey;
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +33,15 @@ class LoginPageState extends State<LoginPage> {
             buildUsernameTextField(),
             const SizedBox(height: 30),
             buildPasswordTextField(context),
-            buildForgetPasswordText(context),
+            const SizedBox(height: 30),
+            buildRepetitivePasswordTextField(context),
+            const SizedBox(height: 30),
+            buildEmailTextField(),
             const SizedBox(height: 60),
-            buildLoginButton(context),
-            const SizedBox(height: 40),
+            buildRegisterButton(context),
+            const SizedBox(height: 20),
             buildRegisterText(context),
+            const SizedBox(height: 40),
           ],
         ),
       ),
@@ -98,11 +55,10 @@ class LoginPageState extends State<LoginPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('没有账号?'),
             GestureDetector(
-              child: const Text('点击注册', style: TextStyle(color: Colors.green)),
+              child: const Text('返回登录', style: TextStyle(color: Colors.grey)),
               onTap: () {
-                Get.toNamed(AppRouter.register);
+                Get.offAllNamed(AppRouter.login);
               },
             )
           ],
@@ -111,7 +67,7 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget buildLoginButton(BuildContext context) {
+  Widget buildRegisterButton(BuildContext context) {
     return Align(
       child: SizedBox(
         height: 45,
@@ -120,31 +76,14 @@ class LoginPageState extends State<LoginPage> {
           style: ButtonStyle(
               shape: MaterialStateProperty.all(const StadiumBorder(
                   side: BorderSide(style: BorderStyle.none)))),
-          child: Text('登录',
+          child: Text('注册',
               style: Theme.of(context).primaryTextTheme.headlineSmall),
           onPressed: () {
             if ((_formKey.currentState as FormState).validate()) {
               (_formKey.currentState as FormState).save();
-              initTIMUIKIT();
-              Get.offAndToNamed(AppRouter.home);
+              Get.offAndToNamed(AppRouter.login);
             }
           },
-        ),
-      ),
-    );
-  }
-
-  Widget buildForgetPasswordText(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: TextButton(
-          onPressed: () {
-            print("忘记密码");
-          },
-          child: const Text("忘记密码？",
-              style: TextStyle(fontSize: 14, color: Colors.grey)),
         ),
       ),
     );
@@ -185,12 +124,71 @@ class LoginPageState extends State<LoginPage> {
           ),
         ));
   }
+  Widget buildRepetitivePasswordTextField(BuildContext context) {
+    return TextFormField(
+        obscureText: _isObscureAgain,
+        onSaved: (v) => _password = v!,
+        validator: (v) {
+          if (v!.isEmpty) {
+            return '请输入再次密码';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          labelText: "重复密码",
+          suffixIcon: IconButton(
+            icon: Icon(
+              Icons.remove_red_eye,
+              color: _eyeColorAgain,
+            ),
+            onPressed: () {
+              setState(() {
+                _isObscureAgain = !_isObscureAgain;
+                _eyeColorAgain = (_isObscureAgain
+                    ? Colors.grey
+                    : Theme.of(context).iconTheme.color)!;
+              });
+            },
+          ),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderSide: BorderSide(
+              color: Colors.blue,
+              width: 2.0,
+            ),
+          ),
+        ));
+  }
+
+  Widget buildEmailTextField() {
+    return TextFormField(
+      validator: (v) {
+        var emailReg = RegExp(
+            r"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?");
+        if (!emailReg.hasMatch(v!)) {
+          return '请输入正确的邮箱地址';
+        }
+        return null;
+      },
+      onSaved: (v) => _email = v!,
+      decoration: const InputDecoration(
+        labelText: "邮箱地址",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderSide: BorderSide(
+            color: Colors.blue,
+            width: 2.0,
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget buildUsernameTextField() {
     return TextFormField(
       validator: (v) {
-        if (v != 'admin') {
-          return '用户错误';
+        if (v!.isEmpty) {
+          return '请输入密码';
         }
         return null;
       },
@@ -225,7 +223,7 @@ class LoginPageState extends State<LoginPage> {
     return const Padding(
         padding: EdgeInsets.all(8),
         child: Text(
-          'Flutter IM',
+          '注册',
           style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ));

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:untitled2/page/RegisterPage.dart';
 import 'page/SearchPage.dart';
 import 'page/AddGroupPage.dart';
 import 'page/LoginPage.dart';
@@ -12,6 +13,7 @@ class AppRouter {
   static const String initRoute = login;
 
   static const String login = "/login";
+  static const String register = "/register";
   static const String home = "/home";
   static const String conversation = "/conversation";
   static const String addFriend = "/addFriend";
@@ -21,6 +23,7 @@ class AppRouter {
   static List<GetPage> routes() {
     return [
       GetPage(name: login, page: () => const LoginPage(title: 'login',)),
+      GetPage(name: register, page: () => const RegisterPage(title: 'register')),
       GetPage(name: home, page: () => const HomePage(title: 'home')),
       GetPage(name: conversation, page: () => const ConversationPage()),
       GetPage(name: addFriend, page: () => const AddFriendPage()),
